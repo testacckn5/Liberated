@@ -3,34 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIBERATED | Built by kvn!</title>
+    <title>ZERO | Built by kvn!</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@500&display=swap');
 
         :root {
-            --accent: #8B5CF6;
-            --accent-glow: rgba(139, 92, 246, 0.5);
-            --bg: #030303;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --bg: #000000;
+            --card: #0a0a0a;
+            --border: #1a1a1a;
+            --accent: #ffffff;
+        }
+
+        * {
+            cursor: default;
         }
 
         body {
             background-color: var(--bg);
-            color: #f8fafc;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.01em;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
         .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* Smooth Reveal Animation */
+        /* Continuous Logo Stream Background */
+        .bg-stream {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.03;
+            transform: rotate(-15deg) translate(-25%, -25%);
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stream-row {
+            display: flex;
+            white-space: nowrap;
+            gap: 40px;
+            font-size: 80px;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+            animation: slide 60s linear infinite;
+        }
+
+        .stream-row:nth-child(even) {
+            animation-direction: reverse;
+            margin-left: -100px;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Video Game Pixelated Fade-In + Constant Glitch */
+        .pixel-boot {
+            animation: 
+                pixelate 1.2s steps(4) forwards,
+                constantGlitch 4s infinite 1.2s; /* Starts after boot animation */
+            filter: blur(10px);
+            opacity: 0;
+            position: relative;
+        }
+
+        @keyframes pixelate {
+            0% {
+                opacity: 0;
+                filter: blur(20px) contrast(200%);
+                transform: scale(0.9) skewX(20deg);
+            }
+            30% {
+                opacity: 0.8;
+                filter: blur(5px) contrast(150%);
+                transform: scale(1.05) skewX(-10deg);
+            }
+            50% {
+                opacity: 0.4;
+                filter: blur(12px) contrast(300%);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0) contrast(100%);
+                transform: scale(1) skewX(0);
+            }
+        }
+
+        /* Constant Glitch Effect */
+        @keyframes constantGlitch {
+            0% { transform: translate(0); }
+            1% { transform: translate(-2px, 1px) skewX(2deg); filter: contrast(150%); }
+            2% { transform: translate(2px, -1px) skewX(-2deg); filter: contrast(100%); }
+            3% { transform: translate(0); }
+            45% { transform: translate(0); }
+            46% { transform: translate(-5px, 0) scaleY(1.05); color: #fff; }
+            47% { transform: translate(5px, 0) scaleY(0.95); color: #888; }
+            48% { transform: translate(0); color: #fff; }
+            49% { opacity: 0.7; }
+            50% { opacity: 1; }
+            95% { transform: translate(0); }
+            96% { transform: skewX(10deg); filter: blur(1px); }
+            97% { transform: skewX(-10deg); }
+            98% { transform: translate(0); filter: blur(0); }
+        }
+
+        /* Hover Glitch Intensifier */
+        .logo-container:hover .pixel-boot {
+            animation: constantGlitch 0.2s infinite;
+        }
+
+        /* Enhanced Reveal System */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            will-change: transform, opacity;
         }
 
         .reveal.active {
@@ -38,414 +134,315 @@
             transform: translateY(0);
         }
 
-        /* Animated Gradient Background */
-        .grad-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.1) 0%, transparent 40%);
+        /* Hover Animations */
+        .hover-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
         }
 
-        /* Moving Watermark Background */
-        .watermark-bg {
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            z-index: -2;
-            transform: rotate(-15deg);
-            pointer-events: none;
-            user-select: none;
-            opacity: 0.03;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
+        .hover-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #333;
+            background-color: #0c0c0c;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
         }
 
-        .watermark-row {
-            display: flex;
-            white-space: nowrap;
-            gap: 40px;
-            font-size: 3rem;
-            font-weight: 900;
-            font-family: 'JetBrains Mono', monospace;
-            animation: slide 60s linear infinite;
-        }
+        .logo-left { color: #333; transition: color 0.3s ease; }
+        .logo-container:hover .logo-left { color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.5); }
 
-        .watermark-row:nth-child(even) {
-            animation-direction: reverse;
-        }
-
-        @keyframes slide {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-
-        /* Glassmorphism */
-        .glass {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-        }
-
-        .glass:hover {
-            border-color: var(--accent);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Nav Link Animation */
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 0;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Premium Button */
-        .btn-premium {
+        /* Button Styling */
+        .btn-main {
             background: #fff;
             color: #000;
             font-weight: 700;
-            transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+            border-radius: 6px;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-
-        .btn-premium:hover {
+        
+        .btn-main:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 30px var(--accent-glow);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
-        /* Floating Animation */
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(1deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
+        .btn-secondary {
+            border: 1px solid var(--border);
+            color: #888;
+            border-radius: 6px;
+            transition: all 0.3s ease;
         }
-        .float-anim { animation: float 6s ease-in-out infinite; }
-
-        .noise {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://grainy-gradients.vercel.app/noise.svg');
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: 999;
+        
+        .btn-secondary:hover {
+            border-color: #fff;
+            color: #fff;
+            background: rgba(255,255,255,0.05);
         }
 
-        .ticker-container {
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        /* Status Light Pulse */
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: pulse 2s infinite;
         }
 
-        /* FAQ Styling */
-        details summary::-webkit-details-marker { display: none; }
-        details[open] summary { color: var(--accent); }
-
-        /* Logo Branding Bar */
-        .logo-item {
-            filter: grayscale(1) brightness(1.5);
-            transition: all 0.4s ease;
-            opacity: 0.5;
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
-        .logo-item:hover {
-            filter: grayscale(0) brightness(1);
-            opacity: 1;
-            transform: translateY(-2px);
+
+        /* Extension Tag */
+        .ext-tag {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.2s ease;
+        }
+        .ext-tag:hover {
+            color: #fff;
+            border-color: #333;
+            background: rgba(255,255,255,0.08);
         }
     </style>
 </head>
 <body>
-    <div class="noise"></div>
-    <div class="grad-bg"></div>
 
-    <!-- Background Watermarks -->
-    <div class="watermark-bg">
-        <div class="watermark-row">kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1</div>
-        <div class="watermark-row">V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED</div>
-        <div class="watermark-row">LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn!</div>
-        <div class="watermark-row">kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1</div>
-        <div class="watermark-row">V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED</div>
-        <div class="watermark-row">LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn!</div>
-        <div class="watermark-row">kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1</div>
-        <div class="watermark-row">V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED</div>
-        <div class="watermark-row">LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn! LIBERATED V2.1 kvn!</div>
-    </div>
+    <!-- Continuous Logo Stream -->
+    <div class="bg-stream" id="bgStream"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-[100] border-b border-white/5 bg-black/60 backdrop-blur-2xl">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <div class="w-8 h-8 bg-gradient-to-tr from-violet-600 to-fuchsia-400 rounded-lg flex items-center justify-center font-bold text-sm">L</div>
-                <div class="flex flex-col">
-                    <span class="text-lg font-extrabold tracking-tight leading-none">LIBERATED</span>
-                    <span class="text-[10px] text-violet-400 font-bold uppercase tracking-widest">Built by kvn!</span>
-                </div>
+    <!-- Header -->
+    <nav id="navbar" class="fixed top-0 w-full z-[100] border-b border-zinc-900/50 bg-black/50 backdrop-blur-md py-4">
+        <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+            <div class="flex items-center space-x-3 group cursor-pointer">
+                <span class="font-black text-xl tracking-tighter transition-transform group-hover:scale-105">
+                    ZERO <span class="text-zinc-700">v2.1</span>
+                </span>
             </div>
-            
-            <div class="flex items-center space-x-4 sm:space-x-8 text-sm font-semibold">
-                <div class="hidden md:flex space-x-8 text-zinc-400">
-                    <a href="https://discord.gg/sRUQVg2zJv" class="nav-link hover:text-white transition">Discord</a>
-                    <a href="https://www.youtube.com/@schooltips-e6t" class="nav-link hover:text-white transition">YouTube</a>
-                </div>
-                <a href="https://discord.gg/sRUQVg2zJv" class="btn-premium px-5 py-2 sm:px-8 sm:py-3 rounded-full text-[10px] sm:text-xs uppercase tracking-wider whitespace-nowrap">
-                    Get the Tool Now
-                </a>
+            <div class="flex items-center space-x-8 text-[11px] font-bold uppercase tracking-wider">
+                <a href="https://discord.gg/sRUQVg2zJv" class="text-zinc-500 hover:text-white transition-colors">Discord</a>
+                <a href="https://www.youtube.com/@schooltips-e6t" class="text-zinc-500 hover:text-white transition-colors">YouTube</a>
+                <a href="https://discord.gg/sRUQVg2zJv" class="btn-main px-5 py-2 text-[10px]">Access Now</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero -->
-    <section class="relative pt-48 pb-10 px-6 overflow-hidden">
-        <div class="max-w-5xl mx-auto text-center reveal">
-            <div class="inline-flex items-center space-x-3 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-extrabold mb-8 uppercase tracking-widest">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
-                </span>
-                <span>Live Users: <span id="user-count">4,821</span> active nodes</span>
+    <section class="pt-48 pb-32 px-6 overflow-hidden">
+        <div class="max-w-3xl mx-auto text-center reveal logo-container">
+            <div class="pixel-boot inline-block">
+                <pre class="mono text-[10px] sm:text-[13px] leading-none inline-block text-left mb-12 select-none transition-all duration-500">
+<span class="logo-left">███████╗███████╗</span><span class="logo-right">██████╗  ██████╗</span>
+<span class="logo-left">╚══███╔╝██╔════╝</span><span class="logo-right">██╔══██╗██╔═══██╗</span>
+<span class="logo-left">  ███╔╝ █████╗  </span><span class="logo-right">██████╔╝██║    ██║</span>
+<span class="logo-left"> ███╔╝  ██╔══╝  </span><span class="logo-right">██╔══██╗██║    ██║</span>
+<span class="logo-left">███████╗███████╗</span><span class="logo-right">██║  ██║╚██████╔╝</span>
+<span class="logo-left">╚══════╝╚══════╝</span><span class="logo-right">╚═╝  ╚═╝ ╚═════╝</span></pre>
             </div>
-            <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-[1.1] mb-8">
-                The high-performance <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-300 to-indigo-400">liberation engine.</span>
+
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-tight">
+                Kill the <span class="text-zinc-600">limits.</span>
             </h1>
-            <p class="text-xl text-zinc-400 max-w-2xl mx-auto mb-12 leading-relaxed font-light">
-                Architected by <span class="text-white font-semibold">kvn!</span> to provide unrestricted digital access by intelligently bypassing enterprise-grade monitoring.
+            <p class="text-zinc-500 text-xl mb-12 font-medium max-w-xl mx-auto leading-relaxed">
+                Premium school bypass tools. Updated daily for 2026.
             </p>
+            
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="https://discord.gg/sRUQVg2zJv" class="btn-premium w-full sm:w-auto px-10 py-5 rounded-2xl text-lg flex items-center justify-center space-x-3 group">
-                    <span>Deploy Tool</span>
-                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                </a>
-                <a href="https://www.youtube.com/@schooltips-e6t" class="w-full sm:w-auto px-10 py-5 rounded-2xl border border-white/10 hover:bg-white/5 transition font-bold mono text-zinc-400 hover:text-white">
-                    VIDEO_DEMO.mp4
-                </a>
+                <a href="https://discord.gg/sRUQVg2zJv" class="btn-main px-10 py-4 w-full sm:w-auto text-sm tracking-wide">Get Started</a>
+                <a href="https://www.youtube.com/@schooltips-e6t" class="btn-secondary px-10 py-4 w-full sm:w-auto text-sm tracking-wide">Video Tutorial</a>
             </div>
         </div>
     </section>
 
-    <!-- Trust Bar with Logos -->
-    <section class="max-w-7xl mx-auto px-6 py-10 reveal">
-        <div class="text-center mb-10">
-            <span class="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.4em]">Neutralized Platforms</span>
+    <!-- Extensions List -->
+    <section class="max-w-5xl mx-auto px-6 py-20 reveal">
+        <div class="text-center mb-12">
+            <h2 class="text-xs font-black text-zinc-600 uppercase tracking-[0.5em] mb-4">Supported Extensions</h2>
+            <p class="text-zinc-400 font-bold">If it's on this list, ZERO turns it off.</p>
         </div>
-        <div class="flex flex-wrap justify-center items-center gap-10 md:gap-20">
-            <!-- GoGuardian -->
-            <div class="logo-item flex flex-col items-center space-y-3 group">
-                <img src="image_50e85a.png" alt="GoGuardian" class="h-10 w-auto object-contain">
-                <span class="text-[7px] font-bold tracking-[0.3em] text-green-400 opacity-0 group-hover:opacity-100 transition-opacity uppercase">Neutralized</span>
+        <div class="flex flex-wrap justify-center gap-3">
+            <span class="ext-tag">GoGuardian</span>
+            <span class="ext-tag">Securly</span>
+            <span class="ext-tag">Hapara</span>
+            <span class="ext-tag">LightSpeed</span>
+            <span class="ext-tag">Blocksi</span>
+            <span class="ext-tag">Linewize</span>
+            <span class="ext-tag">GoGuardian Teacher</span>
+            <span class="ext-tag">Aristotle</span>
+            <span class="ext-tag">Gopher Buddy</span>
+            <span class="ext-tag">Content Keeper</span>
+            <span class="ext-tag">LanSchool</span>
+            <span class="ext-tag">NetSupport</span>
+            <span class="ext-tag">Cisco Umbrella</span>
+            <span class="ext-tag">Zscaler</span>
+            <span class="ext-tag">iboss</span>
+            <span class="ext-tag">Smoothwall</span>
+            <span class="ext-tag">FortiGuard</span>
+            <span class="ext-tag">Deledao</span>
+            <span class="ext-tag">Securely Home</span>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="max-w-6xl mx-auto px-6 py-20">
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="hover-card bg-zinc-950 p-8 rounded-2xl reveal">
+                <div class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center mb-6 border border-white/10">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <h3 class="text-xl font-extrabold mb-3">Pure Speed</h3>
+                <p class="text-zinc-500 text-sm leading-relaxed">Engineered for 2026 browsers. ZERO lag, just instant results.</p>
             </div>
-            <!-- Securly -->
-            <div class="logo-item flex flex-col items-center space-y-3 group">
-                <img src="image_50e87c.png" alt="Securly" class="h-10 w-auto object-contain">
-                <span class="text-[7px] font-bold tracking-[0.3em] text-green-400 opacity-0 group-hover:opacity-100 transition-opacity uppercase">Silenced</span>
+            
+            <div class="hover-card bg-zinc-950 p-8 rounded-2xl reveal" style="transition-delay: 100ms;">
+                <div class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center mb-6 border border-white/10">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                </div>
+                <h3 class="text-xl font-extrabold mb-3">Auto Patch</h3>
+                <p class="text-zinc-500 text-sm leading-relaxed">Our scripts update in real-time. If it breaks, we fix it in minutes.</p>
             </div>
-            <!-- Lightspeed -->
-            <div class="logo-item flex flex-col items-center space-y-3 group">
-                <img src="image_50e8b7.png" alt="Lightspeed" class="h-10 w-auto object-contain">
-                <span class="text-[7px] font-bold tracking-[0.3em] text-green-400 opacity-0 group-hover:opacity-100 transition-opacity uppercase">Filtered</span>
-            </div>
-            <!-- Hapara -->
-            <div class="logo-item flex flex-col items-center space-y-3 group">
-                <img src="image_50e81b.png" alt="Hapara" class="h-10 w-auto object-contain">
-                <span class="text-[7px] font-bold tracking-[0.3em] text-green-400 opacity-0 group-hover:opacity-100 transition-opacity uppercase">Masked</span>
+
+            <div class="hover-card bg-zinc-950 p-8 rounded-2xl reveal" style="transition-delay: 200ms;">
+                <div class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center mb-6 border border-white/10">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <h3 class="text-xl font-extrabold mb-3">Total Stealth</h3>
+                <p class="text-zinc-500 text-sm leading-relaxed">Masks your activity. No flags, no alerts, no history trails.</p>
             </div>
         </div>
     </section>
 
-    <!-- UI Mockup -->
-    <section class="px-6 py-20 reveal">
-        <div class="max-w-6xl mx-auto">
-            <div class="glass rounded-3xl p-3 float-anim shadow-[0_0_100px_rgba(139,92,246,0.1)]">
-                <div class="bg-[#050505] rounded-2xl overflow-hidden border border-white/5">
-                    <div class="h-12 bg-zinc-900/50 flex items-center px-6 space-x-2 border-b border-white/5">
-                        <div class="flex space-x-2">
-                            <div class="w-3 h-3 rounded-full bg-zinc-800"></div>
-                            <div class="w-3 h-3 rounded-full bg-zinc-800"></div>
-                            <div class="w-3 h-3 rounded-full bg-zinc-800"></div>
+    <!-- Interactive Dashboard -->
+    <section class="max-w-5xl mx-auto px-6 py-24 reveal">
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-zinc-800 to-zinc-900 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+            <div class="relative bg-[#050505] border border-zinc-900 rounded-xl overflow-hidden shadow-2xl">
+                <div class="bg-zinc-900/40 px-6 py-4 border-b border-zinc-900 flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="status-dot"></div>
+                        <span class="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em]">Live Control Panel</span>
+                    </div>
+                </div>
+                <div class="p-10 grid md:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center p-5 bg-zinc-900/20 border border-zinc-900 rounded-xl">
+                            <span class="text-sm font-bold text-zinc-300">Filtering Engine</span>
+                            <span class="text-[10px] font-black text-green-500 uppercase px-3 py-1 bg-green-500/10 rounded-full">Bypassed</span>
                         </div>
-                        <div class="flex-1 flex justify-center">
-                            <div class="bg-black/60 border border-white/5 rounded-full py-0.5 px-6 text-[10px] text-zinc-500 mono tracking-tight italic">https://liberated.kvn.dev/dashboard</div>
+                        <div class="flex justify-between items-center p-5 bg-zinc-900/20 border border-zinc-900 rounded-xl">
+                            <span class="text-sm font-bold text-zinc-300">Activity Logs</span>
+                            <span class="text-[10px] font-black text-zinc-500 uppercase px-3 py-1 bg-zinc-500/10 rounded-full">Encrypted</span>
                         </div>
                     </div>
-                    <div class="p-8 md:p-16">
-                        <div class="grid lg:grid-cols-2 gap-16 items-center">
-                            <div class="space-y-8">
-                                <div class="text-xs font-bold text-violet-400 mono uppercase tracking-[0.4em]">Developer Insight</div>
-                                <h3 class="text-4xl font-extrabold italic tracking-tighter leading-tight">Engineered for absolute invisibility.</h3>
-                                <p class="text-zinc-500 text-lg leading-relaxed font-light">
-                                    Liberated utilizes advanced worker-thread manipulation to isolate your browser session from administrative hooks. 
-                                </p>
-                                <div class="grid grid-cols-2 gap-6">
-                                    <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                                        <div class="text-violet-400 font-black text-2xl mb-1 mono">0.0ms</div>
-                                        <div class="text-[10px] uppercase text-zinc-600 font-bold">Latency Delay</div>
-                                    </div>
-                                    <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                                        <div class="text-violet-400 font-black text-2xl mb-1 mono">100%</div>
-                                        <div class="text-[10px] uppercase text-zinc-600 font-bold">Stealth Rate</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bg-[#0a0a0c] rounded-2xl p-8 border border-white/10 mono text-sm shadow-2xl">
-                                <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
-                                    <span class="text-zinc-500 flex items-center space-x-2">
-                                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                                        <span>ACTIVE_SESSION</span>
-                                    </span>
-                                    <span class="text-zinc-700 text-[10px]">V19.4.0_PRO</span>
-                                </div>
-                                <div class="space-y-4 text-zinc-400 font-medium">
-                                    <div class="flex items-center justify-between">
-                                        <span>Tracking Hooks:</span>
-                                        <span class="text-red-500">DEACTIVATED</span>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <span>Policy Shield:</span>
-                                        <span class="text-violet-400">ENGAGED</span>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <span>Node Connection:</span>
-                                        <span class="text-green-500">ENCRYPTED</span>
-                                    </div>
-                                    <div class="pt-6">
-                                        <div class="flex justify-between text-[10px] text-zinc-600 mb-2">
-                                            <span>SHADOW_FLUSH_SEQUENCE</span>
-                                            <span>94%</span>
-                                        </div>
-                                        <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                                            <div class="h-full bg-gradient-to-r from-violet-600 to-indigo-500 w-[94%]"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="flex flex-col justify-center border-l border-zinc-900 md:pl-12">
+                        <h4 class="text-2xl font-black mb-4">Ready to go.</h4>
+                        <p class="text-zinc-500 text-sm mb-8 leading-relaxed">All systems are operational for 2026 filters. Join 50k+ users who already use ZERO.</p>
+                        <button class="btn-main py-3 px-6 text-xs uppercase tracking-widest font-black">Open Interface</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="max-w-4xl mx-auto px-6 py-32 reveal">
+    <!-- FAQ -->
+    <section class="max-w-2xl mx-auto px-6 py-24 reveal">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-extrabold tracking-tighter italic mb-4">Frequently Asked</h2>
-            <p class="text-zinc-500 font-light">Everything you need to know about the deployment.</p>
+            <h2 class="text-3xl font-black tracking-tighter mb-4 uppercase">The Breakdown</h2>
+            <div class="h-1 w-12 bg-white mx-auto rounded-full"></div>
         </div>
         <div class="space-y-4">
-            <details class="glass p-6 rounded-2xl group cursor-pointer">
-                <summary class="flex items-center justify-between font-bold text-lg list-none transition-colors">
-                    <span>How does the bypass remain undetected?</span>
-                    <span class="text-zinc-500 group-open:rotate-180 transition-transform">↓</span>
+            <details class="group bg-zinc-950 border border-zinc-900 rounded-xl overflow-hidden transition-all duration-300">
+                <summary class="p-6 cursor-pointer font-bold text-sm list-none flex justify-between items-center group-open:bg-zinc-900/30">
+                    Does this work on Chromebooks?
+                    <span class="text-zinc-600 transition-transform group-open:rotate-45">+</span>
                 </summary>
-                <p class="mt-4 text-zinc-400 text-sm leading-relaxed">
-                    By operating at the low-level worker thread of the browser, Liberated intercepts the specific API calls monitoring software uses to report home. It responds with "Ghost Data," making the host believe the browser is in a completely idle, restricted state.
-                </p>
+                <div class="px-6 pb-6 pt-2 text-sm text-zinc-500 leading-relaxed border-t border-zinc-900/50">
+                    Fully optimized for ChromeOS 2026. Whether it's GoGuardian or Securly, ZERO handles it with one click.
+                </div>
             </details>
-            <details class="glass p-6 rounded-2xl group cursor-pointer">
-                <summary class="flex items-center justify-between font-bold text-lg list-none transition-colors">
-                    <span>Will this show up on my browsing history?</span>
-                    <span class="text-zinc-500 group-open:rotate-180 transition-transform">↓</span>
+            <details class="group bg-zinc-950 border border-zinc-900 rounded-xl overflow-hidden transition-all duration-300">
+                <summary class="p-6 cursor-pointer font-bold text-sm list-none flex justify-between items-center group-open:bg-zinc-900/30">
+                    Is my account safe?
+                    <span class="text-zinc-600 transition-transform group-open:rotate-45">+</span>
                 </summary>
-                <p class="mt-4 text-zinc-400 text-sm leading-relaxed">
-                    No. Liberated includes an automatic cache-flush mechanism that scrubs navigation logs before the monitoring engine can sync them to the administrative dashboard.
-                </p>
-            </details>
-            <details class="glass p-6 rounded-2xl group cursor-pointer">
-                <summary class="flex items-center justify-between font-bold text-lg list-none transition-colors">
-                    <span>Is this safe to use on managed devices?</span>
-                    <span class="text-zinc-500 group-open:rotate-180 transition-transform">↓</span>
-                </summary>
-                <p class="mt-4 text-zinc-400 text-sm leading-relaxed">
-                    Yes. The script is non-destructive, meaning it doesn't modify permanent system files. A simple page refresh or browser restart returns everything to its default state.
-                </p>
+                <div class="px-6 pb-6 pt-2 text-sm text-zinc-500 leading-relaxed border-t border-zinc-900/50">
+                    100%. We don't ask for logins. The tool works on the browser level to disable restrictions without ever touching your personal data.
+                </div>
             </details>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-white/5 py-24 px-6 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-12 md:space-y-0">
-            <div class="text-center md:text-left">
-                <div class="text-3xl font-black italic tracking-tighter mb-2 italic">LIBERATED</div>
-                <p class="text-zinc-500 text-sm mono">Designed by <span class="text-violet-400">kvn!</span></p>
+    <footer class="border-t border-zinc-900 pt-32 pb-16 bg-black">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="mb-16">
+                <h2 class="text-4xl font-black mb-6 tracking-tighter">Stay <span class="text-zinc-700">unfiltered.</span></h2>
+                <a href="https://discord.gg/sRUQVg2zJv" class="btn-main px-12 py-4 inline-block text-sm uppercase tracking-widest">Join the Community</a>
             </div>
             
-            <div class="flex flex-col items-center space-y-8">
-                <div class="text-center">
-                    <h5 class="text-white font-bold mb-4">Ready to break free?</h5>
-                    <a href="https://discord.gg/sRUQVg2zJv" class="btn-premium px-16 py-5 rounded-2xl text-base shadow-2xl shadow-violet-500/20">
-                        ACCESS TOOL NOW
-                    </a>
+            <div class="flex flex-col md:flex-row items-center justify-between border-t border-zinc-900 pt-12">
+                <div class="text-[10px] font-black text-zinc-700 uppercase tracking-[0.4em] mb-6 md:mb-0">ZERO / BY KVN</div>
+                <div class="flex space-x-12 text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
+                    <a href="#" class="hover:text-white transition-colors">Discord</a>
+                    <a href="#" class="hover:text-white transition-colors">YouTube</a>
+                    <a href="#" class="hover:text-white transition-colors">Updates</a>
                 </div>
-                <div class="flex space-x-12 text-xs font-bold text-zinc-600 uppercase tracking-widest">
-                    <a href="https://www.youtube.com/@schooltips-e6t" class="hover:text-violet-400 transition">YouTube</a>
-                    <a href="https://discord.gg/sRUQVg2zJv" class="hover:text-violet-400 transition">Discord</a>
-                    <a href="#" class="hover:text-violet-400 transition">GitHub</a>
-                </div>
-            </div>
-
-            <div class="text-center md:text-right">
-                <div class="text-[10px] text-zinc-700 uppercase tracking-[0.4em] font-bold">Latency: 0.12ms</div>
-                <div class="text-[10px] text-zinc-700 mt-2 uppercase tracking-[0.2em] font-medium">&copy; 2024 LIBERATED OPERATIONS</div>
+                <p class="text-[9px] text-zinc-800 uppercase tracking-widest font-bold mt-6 md:mt-0">© 2026 GLOBAL OPERATIONS</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Reveal on Scroll Logic
-        const reveals = document.querySelectorAll('.reveal');
+        // Generate Background Stream
+        const streamContainer = document.getElementById('bgStream');
+        const logoText = "ZERO ";
+        for (let i = 0; i < 20; i++) {
+            const row = document.createElement('div');
+            row.className = 'stream-row';
+            row.innerHTML = logoText.repeat(30);
+            streamContainer.appendChild(row);
+        }
+
+        // Intersection Observer for Scroll Reveals
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                 }
             });
-        }, { threshold: 0.05 });
+        }, observerOptions);
 
-        reveals.forEach(r => observer.observe(r));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Subtle background mouse shift
-        document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.005;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.005;
-            document.querySelector('.grad-bg').style.transform = `translate(${moveX}px, ${moveY}px)`;
-            
-            // Subtle watermark reaction
-            const watermarks = document.querySelector('.watermark-bg');
-            watermarks.style.transform = `rotate(-15deg) translate(${moveX * 2}px, ${moveY * 2}px)`;
+        // Parallax for the stream background based on scroll
+        window.addEventListener('scroll', () => {
+            const stream = document.getElementById('bgStream');
+            const scrolled = window.pageYOffset;
+            stream.style.transform = `rotate(-15deg) translate(-25%, calc(-25% + ${scrolled * 0.05}px))`;
         });
 
-        // Live User Counter Simulation
-        let count = 4821;
-        setInterval(() => {
-            const change = Math.floor(Math.random() * 5) - 2;
-            count += change;
-            document.getElementById('user-count').innerText = count.toLocaleString();
-        }, 3000);
+        // Mouse interaction for hero logo (adds to existing glitch)
+        window.addEventListener('mousemove', (e) => {
+            const logo = document.querySelector('.logo-container .pixel-boot');
+            if (logo) {
+                const x = (window.innerWidth / 2 - e.pageX) / 80;
+                const y = (window.innerHeight / 2 - e.pageY) / 80;
+                // Add tiny offset to existing animation base
+                logo.style.marginLeft = `${x}px`;
+                logo.style.marginTop = `${y}px`;
+            }
+        });
     </script>
 </body>
 </html>
