@@ -13,6 +13,7 @@
             --card: #0a0a0a;
             --border: #1a1a1a;
             --accent: #ffffff;
+            --liberated-purple: #a855f7; /* Brighter purple for visibility */
         }
 
         * {
@@ -70,35 +71,19 @@
         .pixel-boot {
             animation: 
                 pixelate 1.2s steps(4) forwards,
-                constantGlitch 4s infinite 1.2s; /* Starts after boot animation */
+                constantGlitch 4s infinite 1.2s;
             filter: blur(10px);
             opacity: 0;
             position: relative;
         }
 
         @keyframes pixelate {
-            0% {
-                opacity: 0;
-                filter: blur(20px) contrast(200%);
-                transform: scale(0.9) skewX(20deg);
-            }
-            30% {
-                opacity: 0.8;
-                filter: blur(5px) contrast(150%);
-                transform: scale(1.05) skewX(-10deg);
-            }
-            50% {
-                opacity: 0.4;
-                filter: blur(12px) contrast(300%);
-            }
-            100% {
-                opacity: 1;
-                filter: blur(0) contrast(100%);
-                transform: scale(1) skewX(0);
-            }
+            0% { opacity: 0; filter: blur(20px) contrast(200%); transform: scale(0.9) skewX(20deg); }
+            30% { opacity: 0.8; filter: blur(5px) contrast(150%); transform: scale(1.05) skewX(-10deg); }
+            50% { opacity: 0.4; filter: blur(12px) contrast(300%); }
+            100% { opacity: 1; filter: blur(0) contrast(100%); transform: scale(1) skewX(0); }
         }
 
-        /* Constant Glitch Effect */
         @keyframes constantGlitch {
             0% { transform: translate(0); }
             1% { transform: translate(-2px, 1px) skewX(2deg); filter: contrast(150%); }
@@ -116,7 +101,6 @@
             98% { transform: translate(0); filter: blur(0); }
         }
 
-        /* Hover Glitch Intensifier */
         .logo-container:hover .pixel-boot {
             animation: constantGlitch 0.2s infinite;
         }
@@ -210,6 +194,41 @@
             border-color: #333;
             background: rgba(255,255,255,0.08);
         }
+
+        /* Corner Legacy Logo - Forced Visibility */
+        .legacy-corner {
+            position: fixed; /* Fixed so it stays while scrolling */
+            top: 100px;
+            right: 30px;
+            text-align: right;
+            z-index: 50;
+            opacity: 0.4;
+            transition: all 0.4s ease;
+            pointer-events: auto; /* Allow hovering */
+        }
+
+        .legacy-corner:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .legacy-text {
+            color: var(--liberated-purple);
+            font-size: 5px; /* Slightly larger for visibility */
+            line-height: 1.2;
+            display: inline-block;
+            text-shadow: 0 0 8px var(--liberated-purple);
+        }
+
+        @media (max-width: 768px) {
+            .legacy-corner { 
+                top: auto; 
+                bottom: 20px; 
+                right: 20px;
+                opacity: 0.6;
+            }
+            .legacy-text { font-size: 3px; }
+        }
     </style>
 </head>
 <body>
@@ -232,6 +251,18 @@
             </div>
         </div>
     </nav>
+
+    <!-- Corner Legacy Branding -->
+    <div class="legacy-corner select-none">
+        <span class="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-500 block mb-2">Formerly Liberated</span>
+        <pre class="legacy-text mono">
+  _      _____ ____  ______ _____         _______ ______ _____  
+ | |    |_   _|  _ \|  ____|  __ \     /\|__   __|  ____|  __ \ 
+ | |      | | | |_) | |__  | |__) |   /  \  | |  | |__  | |  | |
+ | |      | | |  _ <|  __| |  _  /   / /\ \ | |  |  __| | |  | |
+ | |____ _| |_| |_) | |____| | \ \  / ____ \| |  | |____| |__| |
+ |______|_____|____/|______|_|  \_\/_/    \_\_|  |______|_____/ </pre>
+    </div>
 
     <!-- Hero -->
     <section class="pt-48 pb-32 px-6 overflow-hidden">
@@ -438,7 +469,6 @@
             if (logo) {
                 const x = (window.innerWidth / 2 - e.pageX) / 80;
                 const y = (window.innerHeight / 2 - e.pageY) / 80;
-                // Add tiny offset to existing animation base
                 logo.style.marginLeft = `${x}px`;
                 logo.style.marginTop = `${y}px`;
             }
